@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>4 Dynamic CSS</title>
+
+  <style>
+    .text-here {
+      font-size: 55px;
+      font-family: sans-serif;
+      color: black;
+      text-decoration: none;
+      font-style: normal;
+      font-weight: normal;
+      line-height: normal;
+      text-align: left;
+      letter-spacing: normal;
+      word-spacing: normal;
+    }
+
+    .stylebt {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="text-here" id="text-container">This is some example text</div>
+
+  <input type="text" id="colorbox">
+  <button id="colorchange">Change Colour</button>
+
+  <br><br>
+
+  <input type="range" id="fontsize" min="10" max="100" value="55">
+
+  <br><br>
+
+  <button id="italic" class="stylebt">Italics</button>
+  <button id="underline" class="stylebt">Underline</button>
+  <button id="bold" class="stylebt">Bold</button>
+
+  <br><br>
+
+  <select id="list">
+    <option value="serif">Serif</option>
+    <option value="sans-serif">Sans-Serif</option>
+    <option value="monospace">Monospace</option>
+    <option value="cursive">Cursive</option>
+    <option value="fantasy">Fantasy</option>
+  </select>
+
+  <br><br>
+
+  <button id="getstyle">Get CSS</button>
+
+  <br><br>
+
+  <p id="css-props"></p>
+
+  <script>
+    const text = document.getElementById("text-container");
+
+    document.getElementById("colorchange").onclick = () => {
+      text.style.color = document.getElementById("colorbox").value;
+    };
+
+    document.getElementById("fontsize").oninput = (e) => {
+      text.style.fontSize = e.target.value + "px";
+    };
+
+    document.getElementById("italic").onclick = () => {
+      text.style.fontStyle =
+        text.style.fontStyle === "italic" ? "normal" : "italic";
+    };
+
+    document.getElementById("underline").onclick = () => {
+      text.style.textDecoration =
+        text.style.textDecoration === "underline" ? "none" : "underline";
+    };
+
+    document.getElementById("bold").onclick = () => {
+      text.style.fontWeight =
+        text.style.fontWeight === "bold" ? "normal" : "bold";
+    };
+
+    document.getElementById("list").onchange = (e) => {
+      text.style.fontFamily = e.target.value;
+    };
+
+    document.getElementById("getstyle").onclick = () => {
+      let styles = [];
+
+      if (text.style.color)
+        styles.push(`color: ${text.style.color};`);
+
+      if (text.style.fontSize)
+        styles.push(`font-size: ${text.style.fontSize};`);
+
+      if (text.style.fontFamily)
+        styles.push(`font-family: ${text.style.fontFamily};`);
+
+      if (text.style.textDecoration && text.style.textDecoration !== "none")
+        styles.push(`text-decoration: ${text.style.textDecoration};`);
+
+      if (text.style.fontStyle && text.style.fontStyle !== "normal")
+        styles.push(`font-style: ${text.style.fontStyle};`);
+
+      if (text.style.fontWeight && text.style.fontWeight !== "normal")
+        styles.push(`font-weight: ${text.style.fontWeight};`);
+
+      document.getElementById("css-props").textContent = styles.join(" ");
+    };
+  </script>
+
+</body>
+</html>
